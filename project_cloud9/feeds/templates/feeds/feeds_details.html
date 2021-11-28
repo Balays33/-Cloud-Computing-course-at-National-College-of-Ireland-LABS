@@ -1,0 +1,62 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{{ selected_title}}</title>
+    <link rel="stylesheet" href="{% static 'feeds/css/styles.css' %}">
+    <link rel="stylesheet" href="{% static 'feeds/css/all-meetups.css' %}">
+</head>
+<body>
+    <main>
+        <article>
+            <img src="" alt="">my image</img>
+            <section id="location">
+                <h2>feeds location</h2>
+                <address>This feeds location in <span>LOCATION</span>(Address).</address>
+            </section>
+            
+            <section id="details">
+                <h2>This is the post about</h2>
+                <p>{{ description }}</p>
+                <footer>need more details? Please contac with us</footer>
+            </section>
+            <section id="registrarion">
+                <h2>join us</h2>
+                FORM
+            </section>
+        </article>
+    </main>
+    
+    <section>
+        <h2>{{feed.title}} Details</h2>
+    <table>
+        <thead>
+        </thead>
+        <tbody>
+            <tr>
+                <td><b>Director:</b></td>
+                <td>{{feed.director}}</td>
+            </tr>
+            <tr>
+                <td><b>Release date:</b></td>
+                <td>{{feed.release_date}}</td>
+            </tr>
+            <tr>
+                <td><b>Genre:</b></td>
+                <td>{{feed.genre}}</td>
+            </tr>
+            <tr>
+                <td><b>Duration (min):</b></td>
+                <td>{{feed.duration}}</td>
+            </tr>
+        </tbody>
+    </table>
+        
+    </section>
+    
+</body>
+</html>

@@ -1,0 +1,96 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>feeds page</title>
+    <meta charset="utf-8">
+    <meta name="description" content="Free Web tutorials">
+    <meta name="keywords" content="HTML, CSS, JavaScript">
+    <meta name="author" content="Balazs Barcza">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+     <!-- bootstrapcdn link  
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    -->
+    <!-- static link  -->
+    <link rel="stylesheet" href="{% static 'feeds/css/styles.css' %}">
+    <link rel="stylesheet" href="{% static 'feeds/css/all-meetups.css' %}">
+
+</head>
+
+<body>
+    <!--   
+    <div class="container">
+        <h1>My First Bootstrap Page</h1>
+        <p>This is some text.</p>
+    </div>
+     
+    {% if show_feeds %}
+        {% for feed_item in feeds %}
+            <p>{{feed_item.title}}</p>
+        {% endfor %}
+    {% else %}
+         <h2>no feeds</h2>
+    {% endif %}
+    -->
+
+<!--
+    <header id="main-header">
+        <nav><a href="/feeds" id="main-logo">InstagramClone</a></nav>
+        <h1>We got great feeds</h1>
+        <p>find the best</p>
+    </header>
+    <main>
+        <section>
+            <h2>upcoming feeds</h2>
+            <ol>
+                {% for feeds_item in feeds %}
+                   <li class="meetup-item">
+                       <article>
+                           <div class="meetup-summary">
+                               <div class="meetup-image">
+                                   <img src="" alt="">
+                               </div>
+                               <div class="meetup-details">
+                                   <h3>{{ feeds_item.title}}</h3>
+                                   <address>{{ feeds_item.location }}</address>
+                               </div>
+                           </div>
+                           <div class="meetup-actions">
+                              <a href="" class="btn">more details</a>
+                           </div>
+                       </article>
+                   </li>
+                {% endfor %}
+            </ol>
+        </section>
+     </main>
+-->        
+<section>
+  
+        
+         {% if newest_feeds %}
+    <ul>
+        {% for feed in newest_feeds %}
+        <li><a href="{% url 'feeds:show' feed.id %}">{{ feed.title }}</a></li>
+        {% endfor %}
+    </ul>
+    {% else %}
+        <p>There are no movies recorded.</p>
+    {% endif %}
+    
+</section>
+        
+    
+</body>
+
+
+<footer>
+	<p>Created by Balazs Barcza © 2021</p>
+</footer>
+
+</html>
