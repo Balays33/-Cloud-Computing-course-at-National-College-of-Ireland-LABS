@@ -1,0 +1,48 @@
+<!--
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>developer page</title>
+</head>
+<body>
+    <h1>developer</h1>
+    
+</body>
+</html>
+-->
+
+
+
+{% extends 'feeds/base/base.html' %} 
+{% block title %} developer page {% endblock %} 
+{% block body %}developer page {% endblock %} 
+
+
+{% block mainbody %}
+
+<h1>developer</h1>
+<h1>{{ context.val }}</h1>
+
+
+<div id="myDIV">
+    <form action="" method="POST">
+        {% csrf_token %}
+        <input type="text" name="title" id="myInput" placeholder="Title...">
+        <button type="submit" class="addBtn">Add</button>
+        
+    </form>
+</div>
+
+
+<ul id="myUL">
+
+  {% for nametodo in todos reversed %}
+  <li>{{nametodo.title | title}} <span class="close"><a style="text-decoration: none; color: black;" href="delete/{{nametodo.id}}">Delete</a></span></li>
+  {% endfor %}
+</ul>
+
+
+{% endblock %}

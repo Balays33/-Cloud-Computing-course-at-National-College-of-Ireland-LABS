@@ -1,0 +1,94 @@
+{% extends 'feeds/base/base.html' %} 
+{% block title %} feeds page {% endblock %} 
+{% block body %}developer page {% endblock %} 
+
+
+{% block mainbody %}
+
+
+
+
+
+
+<!--Main layout-->
+<main class="my-5">
+    <div class="container">
+        <!--Section: Content-->
+        <section class="text-center text-md-start">
+            <h4 class="mb-1"><strong>Latest posts</strong></h4>
+            <p class="mb-5">{{context.val}}</p>
+            
+                
+                
+                
+           
+            
+       
+    
+
+
+<div class="card" style="width: 50rem;" >
+    <form action="" method="POST">
+        {% csrf_token %}
+        <h5 class="card-header">Upload your feed</h5>
+        <div class="card-body">
+            <div class="input-group mb-3">
+                <span class="btn btn-primary" id="inputGroup-sizing-default" >Title</span>
+                <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" name="titleF">
+            </div>
+            <div class="input-group">
+                <span class="btn btn-primary">Description</span>
+                <textarea class="form-control" aria-label="With textarea" name="descriptionF"></textarea>
+                
+            </div>
+            
+            <!--
+            <div class="input-group">
+                <span class="btn btn-primary">uploadTimeF</span>
+                <textarea class="form-control" aria-label="With textarea" name="uploadTimeF"></textarea>
+            </div>
+            -->
+            
+            <div class="input-group mb-3">
+                <!--<input type="file" class="form-control" id="inputGroupFile02">
+                <button type="submit" class="btn btn-primary" for="inputGroupFile02">Upload</button>
+                -->
+                 <!--<input type="text" name="pictureLink">-->
+                 <button type="submit" class="addBtn" name="uploadTimeF">Add</button>
+            </div>
+
+        </div>
+    </form>
+</div>
+
+
+            <!-- Post from datebase -->
+            {% for name in feeds_database reversed %}
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <div class="bg-image hover-overlay shadow-1-strong rounded ripple" data-mdb-ripple-color="light">
+                        <img src="https://mdbootstrap.com/img/new/standard/nature/184.jpg" class="img-fluid" />
+                        <a href="#!">
+                            <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="col-md-8 mb-4 text-left">
+                    <h5>{{name.titleF | title}}</h5>
+                    <p>{{name.descriptionF}}</p>
+                    <p>{{name.uploadTimeF}}</p>
+
+                    <button type="button" class="btn btn-primary">comments</button>
+                </div>
+            </div>
+            {% endfor %}
+            
+
+          
+
+            
+
+
+
+{% endblock %}
