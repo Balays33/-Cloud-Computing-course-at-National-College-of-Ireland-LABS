@@ -1,8 +1,6 @@
 {% extends 'feeds/base/base.html' %} 
 {% block title %} feeds page {% endblock %} 
 {% block body %}developer page {% endblock %} 
-
-
 {% block mainbody %}
 
 
@@ -18,49 +16,62 @@
             <h1>IntagramClone</h1>
             <h4 class="mb-1"><strong>Latest posts</strong></h4>
             <p class="mb-5">{{context.val}}</p>
-            
-                
-                
-                
-           
-            
-       
-    
 
 
-<div class="card" style="width: 50rem;" >
-    <form action="" method="POST">
-        {% csrf_token %}
-        <h5 class="card-header">Upload your feed</h5>
-        <div class="card-body">
-            <div class="input-group mb-3">
-                <span class="btn btn-primary" id="inputGroup-sizing-default" >Title</span>
-                <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" name="titleF">
-            </div>
-            <div class="input-group">
-                <span class="btn btn-primary">Description</span>
-                <textarea class="form-control" aria-label="With textarea" name="descriptionF"></textarea>
-                
-            </div>
-            
-            <!--
+
+
+
+
+
+
+
+
+            <div class="card" style="width: 50rem;">
+                <form action="" method="POST">
+                    {% csrf_token %}
+                    <h5 class="card-header">Upload your feed</h5>
+                    <div class="card-body">
+                        <div class="input-group mb-3">
+                            <span class="btn btn-primary" id="inputGroup-sizing-default">Title</span>
+                            <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" name="titleF">
+                        </div>
+                        <div class="container">
+                          <div class="row">
+                            <div class="col">
+                              <select id="country" class='form-control'><option value="">-- Country --</option></select>
+                            </div>
+                            <div class="col">
+                               <select id="region" class='form-control'><option value="">-- Region --</option></select>
+                            </div>
+                            <div class="col">
+                              <select id="city" class='form-control'><option value="">-- City --</option></select>
+                            </div>
+                          </div>
+                        </div>
+                        
+                        <div class="input-group">
+                            <span class="btn btn-primary">Description</span>
+                            <textarea class="form-control" aria-label="With textarea" name="descriptionF"></textarea>
+                        </div>
+
+                        <!--
             <div class="input-group">
                 <span class="btn btn-primary">uploadTimeF</span>
                 <textarea class="form-control" aria-label="With textarea" name="uploadTimeF"></textarea>
             </div>
             -->
-            
-            <div class="input-group mb-3">
-                <!--<input type="file" class="form-control" id="inputGroupFile02">
+
+                        <div class="input-group mb-3">
+                            <!--<input type="file" class="form-control" id="inputGroupFile02">
                 <button type="submit" class="btn btn-primary" for="inputGroupFile02">Upload</button>
                 -->
-                 <!--<input type="text" name="pictureLink">-->
-                 <button type="submit" class="addBtn" name="uploadTimeF">Add</button>
-            </div>
+                            <!--<input type="text" name="pictureLink">-->
+                            <button type="submit" class="addBtn" name="uploadTimeF">Add</button>
+                        </div>
 
-        </div>
-    </form>
-</div>
+                    </div>
+                </form>
+            </div>
 
 
             <!-- Post from datebase -->
@@ -78,18 +89,25 @@
                 <div class="col-md-8 mb-4 text-left">
                     <h5>{{name.titleF | title}}</h5>
                     <p>{{name.descriptionF}}</p>
-                    <p>{{name.uploadTimeF}}</p>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col">
+                                <p>{{name.locationF}}</p>
+                            </div>
+                            <div class="col">
+                                <p>{{name.uploadTimeF}}</p>
+                            </div>
+                        </div>
+                    </div>
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-sm-8"></div>
+                                <div class="col-sm-4"><button type="button" class="btn btn-primary">comments</button></div>
+                            </div>
+                        </div>
 
-                    <button type="button" class="btn btn-primary">comments</button>
-                </div>
-            </div>
-            {% endfor %}
-            
-
-          
-
-            
-
-
-
+                           
+                        </div>
+                    </div>
+                    {% endfor %} 
 {% endblock %}

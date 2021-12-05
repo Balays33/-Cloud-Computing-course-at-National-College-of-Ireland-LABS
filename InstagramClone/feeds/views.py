@@ -2,6 +2,8 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.http import Http404
 
+from . import s3storage as s3module
+
 #time package import
 import time
 
@@ -50,8 +52,12 @@ def index(request):
 def developer(request):
     print("developer python fuction")
     
+    
+    
     context= {}
     context['val'] = "TEST"
+    #context['s3test'] = s3module.printOutTest('intagramclone2021')
+    #context['s3test'] = s3module.ListalltheobjectsinBucket('us-east-1','intagramclone2021')
     print(context)
     
     todo = Todo.objects.all()

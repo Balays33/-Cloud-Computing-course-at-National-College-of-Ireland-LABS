@@ -16,15 +16,18 @@
 
 
 
-{% extends 'feeds/base/base.html' %} 
+{% extends 'feeds/base/base.html' %}
+
 {% block title %} developer page {% endblock %} 
 {% block body %}developer page {% endblock %} 
 
 
 {% block mainbody %}
+{% include 'feeds/base/city.html' %} 
 
 <h1>developer</h1>
 <h1>{{ context.val }}</h1>
+<h1>{{ context.s3test }}</h1>
 
 
 <div id="myDIV">
