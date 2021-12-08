@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.http import Http404
+import requests
 
 from . import s3storage as s3module
 
@@ -28,11 +29,25 @@ def index(request):
 def index(request):
     print("index page")
     timeGet()
-    print(timeGet())
+    #print(timeGet())
     context= {}
     context['val'] = timeGet()
-    print(context)   
+    #print(context)   
     
+    url =  'https://api.openweathermap.org/data/2.5/weather?q={}&units=metric&appid=92757f89a5760a1310e7b5657fff90d2'
+    
+    city = "Dublin"
+    
+    r =requests.get(url.format(city)).json()
+    
+    city_weather = {
+        'city' : city,
+        'tempature' : r['main']['temp'],
+        'description' : r['weather'][0]['description'] ,
+        'icon' : r['weather'][0]['icon'],
+    }
+    
+    print(city_weather)
     
     feeds_database = Feed.objects.all()
     if request.method == 'POST':
@@ -40,6 +55,8 @@ def index(request):
             titleF = request.POST['titleF'],
             descriptionF = request.POST['descriptionF'],
             uploadTimeF = request.POST['uploadTimeF'],
+            locationF = request.POST.get('locationF', False),
+            #locationF = request.POST['FFlocationF'],
             #pictureLink = request.POST['pictureLink'],
             )
         new_feed.save()
