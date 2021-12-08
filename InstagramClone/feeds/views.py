@@ -47,9 +47,67 @@ def index(request):
         'icon' : r['weather'][0]['icon'],
     }
     
-    print(city_weather)
+    context['city_weather'] = city_weather
+    #print(context['city_weather'])
+    
+
     
     feeds_database = Feed.objects.all()
+    
+    """
+    for weaterCity in feeds_database:
+        #weatherF = feeds_database.get(titleF='telex')
+        feeds_database.weatherF.weaterCity = "Balazs"
+        print(feeds_database.weatherF)
+     
+    """   
+    
+    t = feeds_database.get(titleF='telex')
+    t.weatherF = 999  # change field
+    t.save() # this will update only
+    """
+    for each in Feed.objects.all():
+        tr = feeds_database.all()
+        tr.weatherF =333
+        tr.save()
+        #test = each.weatherF
+        #each.weatherF.save()
+        print(each.weatherF)
+       
+    for updateWeatherDATA in feeds_database:
+        updateW = feeds_database.updateWeatherDATA
+        updateW.weatherF = 22
+        updateW.save()
+        
+    myQuery = Feed.objects.all()
+    for item in myQuery:
+        item.weatherF = 55
+        item.save(update_fields=['weatherF'])
+    """ 
+    entry_list = list(Feed.objects.all())
+    entry_list[0].titleF = "David"
+    print(entry_list[0].titleF)
+    
+    Feed.objects.all()[0].titleF = "David"
+    
+    print(Feed.objects.all()[0].titleF)
+    
+    
+        
+    for updateWeatherDATA in feeds_database:
+        citylocation =updateWeatherDATA.locationF
+        #print(citylocation)
+        rU =requests.get(url.format(citylocation)).json()
+        #print(rU['main']['temp'])
+        updateWeatherDATA.weatherF = rU['main']['temp']
+        updateWeatherDATA.save(update_fields=['weatherF'])
+        updateWeatherDATA.weatherdescriptionF =  r['weather'][0]['description']
+        updateWeatherDATA.save(update_fields=['weatherdescriptionF'])
+        updateWeatherDATA.weatericonF = r['weather'][0]['icon']
+        updateWeatherDATA.save(update_fields=['weatericonF'])
+        
+    
+    
     if request.method == 'POST':
         new_feed = Feed(
             titleF = request.POST['titleF'],

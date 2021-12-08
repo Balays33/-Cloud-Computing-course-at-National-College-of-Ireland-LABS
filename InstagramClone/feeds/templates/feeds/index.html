@@ -17,9 +17,11 @@
             <h4 class="mb-1"><strong>Latest posts</strong></h4>
             <p class="mb-5">{{context.val}}</p>
 
-
-
-
+            <p>{{context.city_weather.city}}</p>
+            <p>{{context.city_weather.tempature}}</p>
+            <p>{{context.city_weather.description}}</p>
+            <img src="http://openweathermap.org/img/wn/{{context.city_weather.icon}}.png" alt="image"></img>
+            
 
 
 
@@ -105,12 +107,13 @@
                     </div>
                         <div class="container">
                             <div class="row">
-                                <div class="col-sm-8">Weater</div>
+                                <div class="col-sm-2">{{name.weatherF}} °C</div>
+                                <div class="col-sm-2">{{name.weatherdescriptionF}}</div>
+                                <div class="col-sm-4"><img src="http://openweathermap.org/img/wn/{{name.weatericonF}}.png" alt="image"></img></div>
                                 <div class="col-sm-4"><button type="button" class="btn btn-primary">comments</button></div>
                             </div>
-                        </div>
-
                            
+                        </div>
                         </div>
                     </div>
                     {% endfor %} 
