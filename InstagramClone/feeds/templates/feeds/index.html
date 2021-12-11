@@ -1,6 +1,6 @@
-{% extends 'feeds/base/base.html' %} 
-{% block title %} feeds page {% endblock %} 
-{% block body %}developer page {% endblock %} 
+{% extends 'feeds/base/base.html' %}
+{% block title %} feeds page {% endblock %}
+{% block body %}developer page {% endblock %}
 {% block mainbody %}
 
 
@@ -21,7 +21,7 @@
             <p>{{context.city_weather.tempature}}</p>
             <p>{{context.city_weather.description}}</p>
             <img src="http://openweathermap.org/img/wn/{{context.city_weather.icon}}.png" alt="image"></img>
-            
+
 
 
 
@@ -35,8 +35,9 @@
                     <div class="card-body">
                         <div class="input-group mb-3">
                             <span class="btn btn-primary" id="inputGroup-sizing-default">Title</span>
-                            <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" name="titleF">
+                            <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" name="titleF" value="My Title">
                         </div>
+                        <!--
                         <div class="container">
                           <div class="row">
                             <div class="col">
@@ -46,18 +47,50 @@
                                <select id="region" class='form-control'><option value="">-- Region --</option></select>
                             </div>
                             <div class="col">
-                              <select id="city" class='form-control'><option value="">-- City --</option></select>
+                              <select id="city" class='form-control' name="locationF"><option value="">-- City --</option></select>
                             </div>
                           </div>
                         </div>
                         <div  id='location'> - </div>
                         <div class="input-group mb-3">
                             <span class="btn btn-primary" id="inputGroup-sizing-default">City</span>
-                            <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" name="locationF">
+                            <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" name="locationF"  value="Dublin">
+                        </div>
+                        -->
+                        <div class="container">
+                        <form action="" method="post">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <select name="country" class="countries form-control" id="countryId">
+                                            <option value="">Select Country</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <select name="state" class="states form-control" id="stateId">
+                                            <option value="" id="demo">Select State</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <select  class="cities form-control" id="cityId" name="locationF">
+                                            <option value="">Select City</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                        </div>
+                         <div class="input-group mb-3">
+                            <form>
+                              <div class="form-group">
+                                <label for="exampleFormControlFile1">Example file input</label>
+                                <input type="file" class="form-control-file" id="exampleFormControlFile1">
+                              </div>
+                            </form>
                         </div>
                         <div class="input-group">
                             <span class="btn btn-primary">Description</span>
-                            <textarea class="form-control" aria-label="With textarea" name="descriptionF"></textarea>
+                            <textarea class="form-control" aria-label="With textarea" name="descriptionF" value="No Description"></textarea>
                         </div>
 
                         <!--
@@ -72,7 +105,8 @@
                 <button type="submit" class="btn btn-primary" for="inputGroupFile02">Upload</button>
                 -->
                             <!--<input type="text" name="pictureLink">-->
-                            <button type="submit" class="addBtn" name="uploadTimeF">Add</button>
+                            <hr>
+                            <button type="submit"  name="uploadTimeF" class="p-3 mb-2 bg-info text-white">Create Your POST</button>
                         </div>
 
                     </div>
@@ -105,16 +139,16 @@
                             </div>
                         </div>
                     </div>
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-sm-2">{{name.weatherF}} °C</div>
-                                <div class="col-sm-2">{{name.weatherdescriptionF}}</div>
-                                <div class="col-sm-4"><img src="http://openweathermap.org/img/wn/{{name.weatericonF}}.png" alt="image"></img></div>
-                                <div class="col-sm-4"><button type="button" class="btn btn-primary">comments</button></div>
-                            </div>
-                           
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-sm-2">{{name.weatherF}} °C</div>
+                            <div class="col-sm-2">{{name.weatherdescriptionF}}</div>
+                            <div class="col-sm-4"><img src="http://openweathermap.org/img/wn/{{name.weatericonF}}.png" alt="image"></img></div>
+                            <div class="col-sm-4"><button type="button" class="btn btn-primary">comments</button></div>
                         </div>
-                        </div>
+
                     </div>
-                    {% endfor %} 
-{% endblock %}
+                </div>
+            </div>
+            {% endfor %}
+            {% endblock %}
