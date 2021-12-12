@@ -61,13 +61,12 @@ def upload_file(file_name, bucket, object_key=None):
     # Upload the file
     s3_client = boto3.client('s3')
     try:
-        response = s3_client.upload_file(file_name, bucket, object_key)
+        response = s3_client.upload_file(file_name, bucket, object_key, ExtraArgs={'ACL':'public-read'})
         '''
         # an example of using the ExtraArgs optional parameter to set the ACL (access control list) value 'public-read' to the S3 object
         response = s3_client.upload_file(file_name, bucket, key, 
             ExtraArgs={'ACL': 'public-read'})
         '''
-        
     except ClientError as e:
         logging.error(e)
         return False
@@ -108,9 +107,13 @@ def ListalltheobjectsinBucket(region, bucket_name):
     s3 = boto3.resource('s3')
     #print(bucket_name)
     my_bucket = s3.Bucket(bucket_name)
+    #print(my_bucket.objects.all())
     #my_bucket = s3.Bucket('bucket_name')
+    nameImage = []
     for file in my_bucket.objects.all():
+        nameImage.append(file.key)
         print(file.key)
+    print(nameImage)
     return my_bucket
 
 
@@ -118,6 +121,10 @@ def printOutTest(testdata):
     #print("The S3 inport is working")
     print(testdata)
     return testdata
+    
+def test(bucket_name):
+    location = boto3.client('s3').get_bucket_location(Bucket=bucket_name)['LocationConstraint']
+    url = "https://s3-%s.amazonaws.com/%s/%s" % (location, bucket_name, key)
  
  
     

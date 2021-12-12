@@ -32,7 +32,10 @@ def index(request):
     #print(timeGet())
     context= {}
     context['val'] = timeGet()
-    #print(context['val'])   
+    #print(context['val'])
+    #context['uploadObjectToS3'] = s3module.upload_file('apple.jpg','intagramclone2021')
+    #context['listObjectsinS3'] = s3module.ListalltheobjectsinBucket('us-east-1','intagramclone2021')
+    #print(context['listObjectsinS3'])
     
     url =  'https://api.openweathermap.org/data/2.5/weather?q={}&units=metric&appid=92757f89a5760a1310e7b5657fff90d2'
     
@@ -63,8 +66,10 @@ def index(request):
             #pictureLink = request.POST['pictureLink'],
             )
         new_feed.save()
+        #imag = request.POST['choosedImage']
+        #uploadImageFunction(imag)
     weaterforcast(feeds_database,url)
-    
+    listPictureS3()
     return render(request, 'feeds/index.html', {'feeds_database': feeds_database, 'context': context})
     
 
@@ -77,9 +82,15 @@ def developer(request):
     context= {}
     context['val'] = "TEST"
     #context['s3test'] = s3module.printOutTest('intagramclone2021')
+    context['s3uploadtest'] = s3module.upload_file('apple.jpg','intagramclone2021')
     context['s3test'] = s3module.ListalltheobjectsinBucket('us-east-1','intagramclone2021')
-    print(context)
+    #print(context)
     
+
+    
+    
+       
+       
     todo = Todo.objects.all()
     if request.method == 'POST':
         new_todo = Todo(
@@ -88,6 +99,8 @@ def developer(request):
         new_todo.save()
         #return redirect('/')        
         #return render(request, 'feeds/developer.html',{'todos' : todo}) 
+        imaggg = request.POST.get('getrow')
+        uploadImageFunction(imaggg)
         
             
     return render(request, 'feeds/developer.html', {'todos' : todo ,'context': context})
@@ -132,7 +145,24 @@ def weaterforcast(feeds_database,url):
           errorObject.delete()
     return feeds_database 
     
+#upload Image function
+def uploadImageFunction(image):
+    print("upload Image function is working")
+    print(image)
+    context= {}
+    context['uploadObjectToS3'] = s3module.upload_file(image,'intagramclone2021')
+    return context['uploadObjectToS3']
+
+#list of the uploaded Pictures
+def listPictureS3():
+    context = {}
+    context['listObjectsinS3'] = s3module.ListalltheobjectsinBucket('us-east-1','intagramclone2021')
+    print(context['listObjectsinS3'])
+    return context['listObjectsinS3'] 
     
+
+
+
 #clean up
     """
     

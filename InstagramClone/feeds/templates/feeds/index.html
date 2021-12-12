@@ -21,7 +21,8 @@
             <p>{{context.city_weather.tempature}}</p>
             <p>{{context.city_weather.description}}</p>
             <img src="http://openweathermap.org/img/wn/{{context.city_weather.icon}}.png" alt="image"></img>
-
+            
+           
 
 
 
@@ -84,7 +85,7 @@
                             <form>
                               <div class="form-group">
                                 <label for="exampleFormControlFile1">Example file input</label>
-                                <input type="file" class="form-control-file" id="exampleFormControlFile1">
+                                <input type="file" class="form-control-file" id="exampleFormControlFile1" name="choosedImage">
                               </div>
                             </form>
                         </div>
@@ -119,7 +120,8 @@
             <div class="row">
                 <div class="col-md-4 mb-4">
                     <div class="bg-image hover-overlay shadow-1-strong rounded ripple" data-mdb-ripple-color="light">
-                        <img src="https://mdbootstrap.com/img/new/standard/nature/184.jpg" class="img-fluid" />
+                        <img src="https://intagramclone2021.s3.amazonaws.com/{{name.titleF}}.jpg" class="img-fluid" />
+                        <!--<img src="https://mdbootstrap.com/img/new/standard/nature/184.jpg" class="img-fluid" />-->
                         <a href="#!">
                             <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
                         </a>

@@ -27,12 +27,6 @@
 {% include 'feeds/base/city.html' %} 
 
 
- <div class="mb-2">
-   <label for="formFile" class="form-label">Default image input</label>
-   <input class="form-control" type="file" id="formFile">
- </div>
-
-
 <h1>developer</h1>
 <h1>{{ context.val }}</h1>
 <h1>{{ context.s3test }}</h1>
@@ -40,13 +34,15 @@
 
 
 
-<div id="hello"> Hello </div>
-<div id="world"> World </div>
-
 
 <div id="myDIV">
     <form action="" method="POST">
         {% csrf_token %}
+        
+        <label for="user_file">Upload Your File</label>
+    <br>
+    <input type="file" name="getrow">
+    <br>
         <input type="text" name="title" id="myInput" placeholder="Title...">
         <button type="submit" class="addBtn">Add</button>
         
