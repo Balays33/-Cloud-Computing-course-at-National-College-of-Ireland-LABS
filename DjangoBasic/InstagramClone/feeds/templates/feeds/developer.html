@@ -1,0 +1,90 @@
+<!--
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>developer page</title>
+</head>
+<body>
+    <h1>developer</h1>
+    
+</body>
+</html>
+-->
+
+
+
+{% extends 'feeds/base/base.html' %}
+    
+
+{% block title %} developer page {% endblock %} 
+{% block body %}developer page {% endblock %} 
+
+
+{% block mainbody %}
+{% include 'feeds/base/city.html' %} 
+
+
+<h1>developer</h1>
+<h1>{{ context.val }}</h1>
+<h1>{{ context.s3test }}</h1>
+
+
+
+
+
+<div id="myDIV">
+    <form action="" method="POST">
+        {% csrf_token %}
+        
+        <label for="user_file">Upload Your File</label>
+    <br>
+    <input type="file" name="getrow">
+    <br>
+        <input type="text" name="title" id="myInput" placeholder="Title...">
+        <button type="submit" class="addBtn">Add</button>
+        
+    </form>
+</div>
+
+
+<ul id="myUL">
+
+  {% for nametodo in todos reversed %}
+  <li>{{nametodo.title | title}} <span class="close"><a style="text-decoration: none; color: black;" href="delete/{{nametodo.id}}">Delete</a></span></li>
+  {% endfor %}
+</ul>
+
+
+
+<form action="" method="post">  
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-4">
+        <h3>Country</h3>
+        <select name="country" class="countries form-control" id="countryId">
+      <option value="">Select Country</option>
+  </select>
+
+      </div>
+      <div class="col-sm-4">
+        <h3>State</h3>
+        <select name="state" class="states form-control" id="stateId">
+      <option value="" id="demo">Select State</option>
+  </select>
+      </div>
+      <div class="col-sm-4">
+        <h3>City</h3>        
+        <select name="city" class="cities form-control" id="cityId">
+      <option value="">Select City</option>
+      </div>
+    </div>
+  </div>
+</form>
+
+
+
+
+{% endblock %}

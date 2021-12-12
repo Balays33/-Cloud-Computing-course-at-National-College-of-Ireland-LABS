@@ -25,7 +25,8 @@ SECRET_KEY = 'bl9y(os6@&+p-pw7h83y!7quvxnpr9pkr7923qy79i#f8n)hbo'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["da26de9ad58b403781effa5aea972dfc.vfs.cloud9.us-east-1.amazonaws.com"]
+ALLOWED_HOSTS = ["1ca1b18f5f76493b9626ac3d1c6d7105.vfs.cloud9.us-east-1.amazonaws.com"]
+
 
 
 # Application definition
