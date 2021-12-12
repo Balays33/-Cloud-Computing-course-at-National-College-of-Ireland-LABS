@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from django.http import Http404
 import requests
 
+
 from . import s3storage as s3module
 
 #time package import
@@ -63,7 +64,8 @@ def index(request):
             uploadTimeF = request.POST['uploadTimeF'],
             locationF = request.POST.get('locationF', False),
             #locationF = request.POST['FFlocationF'],
-            #pictureLink = request.POST['pictureLink'],
+            #pictureF = request.POST['pictureLink'],
+            #pictureF = request.POST['choosedImage'],
             )
         new_feed.save()
         #imag = request.POST['choosedImage']
@@ -152,6 +154,8 @@ def uploadImageFunction(image):
     context= {}
     context['uploadObjectToS3'] = s3module.upload_file(image,'intagramclone2021')
     return context['uploadObjectToS3']
+    
+    
 
 #list of the uploaded Pictures
 def listPictureS3():

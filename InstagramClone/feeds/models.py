@@ -14,7 +14,7 @@ class Feed(models.Model):
     weatherdescriptionF = models.CharField(max_length=20,default="-")
     weatericonF = models.CharField(max_length=20,default="-")
     #uploadTimeF = models.DateTimeField(auto_now=True)
-    #pictureF = models.FileField(upload_to='media/',default='settings.MEDIA_ROOT/apple.jpg')
+    pictureF = models.FileField(upload_to='media/',default='settings.MEDIA_ROOT/apple.jpg')
     #pictureLink = models.URLField(max_length = 200)
     
     def __str__(self):
