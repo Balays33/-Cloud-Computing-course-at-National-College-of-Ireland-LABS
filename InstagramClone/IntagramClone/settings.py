@@ -15,8 +15,7 @@ import os
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-MEDIA_ROOT =  os.path.join(BASE_DIR, 'media')
-MEDIA_URL = '/media/'
+
 
 
 # Quick-start development settings - unsuitable for production
@@ -28,7 +27,7 @@ SECRET_KEY = 'bl9y(os6@&+p-pw7h83y!7quvxnpr9pkr7923qy79i#f8n)hbo'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["76c2a2c516c54d93917f5f6d301cc76e.vfs.cloud9.us-east-1.amazonaws.com"]
+ALLOWED_HOSTS = ["*"]
 
 
 
@@ -124,3 +123,13 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
+
+
+MEDIA_URL = '/images/'
+
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static')
+    ]
+
+MEDIA_ROOT =  os.path.join(BASE_DIR, 'static/images')

@@ -4,7 +4,16 @@ from django.http import Http404
 import requests
 
 
+import logging
+import boto3
+from botocore.exceptions import ClientError
+import os
+
+
+
 from . import s3storage as s3module
+from . import s3 as s3m
+
 
 #time package import
 import time
@@ -15,6 +24,9 @@ import time
 from .models import Todo
 from .models import Feed
 
+
+from .forms import *
+from django.core.files.storage import FileSystemStorage
 # Create your views here.
 
 
@@ -25,6 +37,29 @@ from .models import Feed
 def index(request):
     return HttpResponse("Hello, world. You're at the polls index.")
 '''
+
+def upload(request):
+    print("upload page")
+    context= {}
+    
+    if request.method == 'POST':
+        nameOfTrip = request.POST['nameOfTrip']+'.jpg'
+        upload_file = request.FILES['document']
+        print(upload_file.name)
+        print(upload_file.size)
+        fs = FileSystemStorage()
+        name = fs.save(upload_file.name,upload_file)
+        context['url'] = fs.url(name)
+        locationOfFile = 'static/images/{}'
+        uploadImageFunction(locationOfFile.format(upload_file.name),nameOfTrip)
+        #object_name = str(upload_file.name)
+        #s3_client = boto3.client('s3')
+        #response = s3_client.upload_file(upload_file, 'intagramclone2021', object_name)
+        
+        #context['uploadObjectToS3'] = s3module.upload_file(name,'intagramclone2021')
+    return render(request, 'feeds/upload.html',  context)
+
+    
 
 
 def index(request):
@@ -38,11 +73,12 @@ def index(request):
     #context['listObjectsinS3'] = s3module.ListalltheobjectsinBucket('us-east-1','intagramclone2021')
     #print(context['listObjectsinS3'])
     
-    url =  'https://api.openweathermap.org/data/2.5/weather?q={}&units=metric&appid=92757f89a5760a1310e7b5657fff90d2'
+    urlwithIE =  'https://api.openweathermap.org/data/2.5/weather?q={},{}&units=metric&appid=92757f89a5760a1310e7b5657fff90d2'
+    url =  'https://api.openweathermap.org/data/2.5/weather?q={},&units=metric&appid=92757f89a5760a1310e7b5657fff90d2'
     
     city = "Dublin"
     
-    r =requests.get(url.format(city)).json()
+    r =requests.get(urlwithIE.format(city,"ie")).json()
     
     city_weather = {
         'city' : city,
@@ -54,8 +90,8 @@ def index(request):
     context['city_weather'] = city_weather
     #print(context['city_weather'])
     feeds_database = Feed.objects.all()
-    
-    
+     
+       
     
     if request.method == 'POST':
         new_feed = Feed(
@@ -65,13 +101,18 @@ def index(request):
             locationF = request.POST.get('locationF', False),
             #locationF = request.POST['FFlocationF'],
             #pictureF = request.POST['pictureLink'],
-            #pictureF = request.POST['choosedImage'],
+            #pictureF = FeedForm(request.POST, request.FILES)
+            
             )
         new_feed.save()
+        pictureF = request.FILES['doc']
+        print(pictureF.name)
+        print(pictureF.size)
         #imag = request.POST['choosedImage']
-        #uploadImageFunction(imag)
+        #uploadImageFunction('apple.jpg')
     weaterforcast(feeds_database,url)
     listPictureS3()
+    
     return render(request, 'feeds/index.html', {'feeds_database': feeds_database, 'context': context})
     
 
@@ -101,8 +142,8 @@ def developer(request):
         new_todo.save()
         #return redirect('/')        
         #return render(request, 'feeds/developer.html',{'todos' : todo}) 
-        imaggg = request.POST.get('getrow')
-        uploadImageFunction(imaggg)
+        #imaggg = request.POST.get('getrow')
+        #uploadImageFunction(imaggg)
         
             
     return render(request, 'feeds/developer.html', {'todos' : todo ,'context': context})
@@ -129,11 +170,11 @@ def timeGet():
 def weaterforcast(feeds_database,url):
     for updateWeatherDATA in feeds_database:
         citylocation =updateWeatherDATA.locationF
-        print(citylocation)
+        #print(citylocation)
         newGeoWeater =requests.get(url.format(citylocation)).json()
-        print(newGeoWeater)
+        #print(newGeoWeater)
         try:
-          print(newGeoWeater['main']['temp'])
+          #print(newGeoWeater['main']['temp'])
           updateWeatherDATA.weatherF = newGeoWeater['main']['temp']
           updateWeatherDATA.save(update_fields=['weatherF'])
           updateWeatherDATA.weatherdescriptionF =  newGeoWeater['weather'][0]['description']
@@ -148,11 +189,11 @@ def weaterforcast(feeds_database,url):
     return feeds_database 
     
 #upload Image function
-def uploadImageFunction(image):
+def uploadImageFunction(image,imageNAME):
     print("upload Image function is working")
     print(image)
     context= {}
-    context['uploadObjectToS3'] = s3module.upload_file(image,'intagramclone2021')
+    context['uploadObjectToS3'] = s3module.upload_file(image,'intagramclone2021',imageNAME)
     return context['uploadObjectToS3']
     
     
@@ -161,8 +202,11 @@ def uploadImageFunction(image):
 def listPictureS3():
     context = {}
     context['listObjectsinS3'] = s3module.ListalltheobjectsinBucket('us-east-1','intagramclone2021')
-    print(context['listObjectsinS3'])
+    #print(context['listObjectsinS3'])
     return context['listObjectsinS3'] 
+
+
+
     
 
 

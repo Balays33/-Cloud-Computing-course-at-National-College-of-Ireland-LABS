@@ -1,0 +1,52 @@
+{% extends 'feeds/base/base.html' %}
+{% block title %} Upload page {% endblock %}
+
+
+
+
+{% block mainbody %}
+
+
+
+
+
+<div class="card">
+    <div class="card-header">
+        <h1>Upload page</h1>
+    </div>
+    <div class="card-body">
+        <h5 class="card-title">You can choose any picture to upload</h5>
+        <p class="card-text">Please use same title to the journey and blog</p>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <span class="btn btn-primary" id="inputGroup-sizing-default">Title of your Journey</span>
+            <input type="text" name="nameOfTrip" />
+            <input type="file" name="document" />
+            <button type="submit" class="btn btn-primary">upload Picture</button>
+        </form>
+        {% if url %}
+        <p>Uploaded file: <a href="{{ url }}">{{ url }}</a></p>
+        <h1>Thanks for your upload</h1>
+        {% endif %}
+    </div>
+</div>
+
+
+<<div class="card text-white bg-success mb-3" style="max-width: 18rem;">
+  <div class="card-body">
+    <h5 class="card-title">Click here to visit the Feed page</h5>
+    <form action="feeds">
+    <button type="button" class="btn btn-primary btn-lg">Large button</button>
+    </form>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+{% endblock %}

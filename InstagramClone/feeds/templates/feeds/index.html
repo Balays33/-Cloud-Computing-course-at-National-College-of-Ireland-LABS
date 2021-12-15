@@ -17,12 +17,17 @@
             <h4 class="mb-1"><strong>Latest posts</strong></h4>
             <p class="mb-5">{{context.val}}</p>
 
+
+
+
+
+
             <p>{{context.city_weather.city}}</p>
             <p>{{context.city_weather.tempature}}</p>
             <p>{{context.city_weather.description}}</p>
             <img src="http://openweathermap.org/img/wn/{{context.city_weather.icon}}.png" alt="image"></img>
-            
-           
+
+
 
 
 
@@ -30,8 +35,10 @@
 
 
             <div class="card" style="width: 50rem;">
-                <form action="" method="POST">
+                <form method="POST" enctype="multipart/form-data">
                     {% csrf_token %}
+
+
                     <h5 class="card-header">Upload your feed</h5>
                     <div class="card-body">
                         <div class="input-group mb-3">
@@ -59,34 +66,37 @@
                         </div>
                         -->
                         <div class="container">
-                        <form action="" method="post">
-                            <div class="container">
-                                <div class="row">
-                                    <div class="col-sm-4">
-                                        <select name="country" class="countries form-control" id="countryId">
-                                            <option value="">Select Country</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <select name="state" class="states form-control" id="stateId">
-                                            <option value="" id="demo">Select State</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <select  class="cities form-control" id="cityId" name="locationF">
-                                            <option value="">Select City</option>
-                                        </select>
+                            <form action="" method="post">
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col-sm-4">
+                                            <select name="country" class="countries form-control" id="countryId">
+                                                <option value="">Select Country</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <select name="state" class="states form-control" id="stateId">
+                                                <option value="" id="demo">Select State</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <select class="cities form-control" id="cityId" name="locationF">
+                                                <option value="">Select City</option>
+                                            </select>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </form>
+                            </form>
                         </div>
-                         <div class="input-group mb-3">
+                        <div class="input-group mb-3">
                             <form>
+                                <!--  
                               <div class="form-group">
-                                <label for="exampleFormControlFile1">Example file input</label>
-                                <input type="file" class="form-control-file" id="exampleFormControlFile1" name="choosedImage">
-                              </div>
+                               <input type="file" name="picture"/>
+                              -->
+                                <div class="container">
+                                    <h5>Please post your feed and after visit the upload page where you can customize your blog photo</h5>
+                                </div>
                             </form>
                         </div>
                         <div class="input-group">
@@ -94,26 +104,25 @@
                             <textarea class="form-control" aria-label="With textarea" name="descriptionF" value="No Description"></textarea>
                         </div>
 
-                        <!--
-            <div class="input-group">
-                <span class="btn btn-primary">uploadTimeF</span>
-                <textarea class="form-control" aria-label="With textarea" name="uploadTimeF"></textarea>
-            </div>
-            -->
+
 
                         <div class="input-group mb-3">
-                            <!--<input type="file" class="form-control" id="inputGroupFile02">
-                <button type="submit" class="btn btn-primary" for="inputGroupFile02">Upload</button>
-                -->
-                            <!--<input type="text" name="pictureLink">-->
+
                             <hr>
-                            <button type="submit"  name="uploadTimeF" class="p-3 mb-2 bg-info text-white">Create Your POST</button>
+                            <button type="submit" name="uploadTimeF" class="p-3 mb-2 bg-info text-white">Create Your POST</button>
                         </div>
 
                     </div>
                 </form>
             </div>
-
+            <!-- visit the upload page -->
+            <div class="card" style="width: 50rem;">
+            <br>
+            <form action="upload">
+                <input type="submit" value="Upload your Photo" class="btn btn-primary btn-lg btn-block" />
+            </form> 
+                <br>
+            </div>
 
             <!-- Post from datebase -->
             {% for name in feeds_database reversed %}
@@ -129,7 +138,8 @@
                 </div>
 
                 <div class="col-md-8 mb-4 text-left">
-                    <h5>{{name.titleF | title}}</h5>
+                    <h5>{{name.titleF}}</h5>
+                    <!--<h5>{{name.titleF | title}}</h5>-->
                     <p>{{name.descriptionF}}</p>
                     <div class="container">
                         <div class="row">

@@ -1,8 +1,11 @@
 from django import forms
 from .models import *
-  
-class HotelForm(forms.ModelForm):
+
+
+class FeedForm(forms.ModelForm):
   
     class Meta:
-        model = Hotel
-        fields = ['name', 'hotel_Main_Img']
+        model = Feed
+        fields = ['titleF', 'descriptionF', 'locationF', 'weatherF', 'weatherdescriptionF', 'weatericonF', 'pictureF']
+        
+

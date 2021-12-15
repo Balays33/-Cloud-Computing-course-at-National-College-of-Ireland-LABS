@@ -14,14 +14,13 @@ class Feed(models.Model):
     weatherdescriptionF = models.CharField(max_length=20,default="-")
     weatericonF = models.CharField(max_length=20,default="-")
     #uploadTimeF = models.DateTimeField(auto_now=True)
-    pictureF = models.FileField(upload_to='media/',default='settings.MEDIA_ROOT/apple.jpg')
-    #pictureLink = models.URLField(max_length = 200)
+    #pictureF = models.FileField(upload_to='media/',default='settings.MEDIA_ROOT/apple.jpg')
+    pictureF = models.ImageField(null=True, blank =True, upload_to = "images/")
     
     def __str__(self):
         return self.titleF + " - " + self.descriptionF + " - " + self.locationF 
     
     
-        
         
 
 class Todo(models.Model):
@@ -29,3 +28,6 @@ class Todo(models.Model):
     
     def __str__(self):
         return self.title
+
+
+   

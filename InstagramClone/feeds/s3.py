@@ -6,7 +6,6 @@ import boto3
 from botocore.exceptions import ClientError
 
 
-
 def create_bucket(bucket_name, region=None):
     """Create an S3 bucket in a specified region
 
@@ -43,6 +42,7 @@ def list_buckets():
     print('Existing buckets:')
     for bucket in response['Buckets']:
         print('\t', bucket["Name"])
+    return "work"
     
     
 def upload_file(file_name, bucket, object_key=None):
@@ -61,12 +61,13 @@ def upload_file(file_name, bucket, object_key=None):
     # Upload the file
     s3_client = boto3.client('s3')
     try:
-        response = s3_client.upload_file(file_name, bucket, object_key, ExtraArgs={'ACL':'public-read'})
+        response = s3_client.upload_file(file_name, bucket, object_key)
         '''
         # an example of using the ExtraArgs optional parameter to set the ACL (access control list) value 'public-read' to the S3 object
         response = s3_client.upload_file(file_name, bucket, key, 
             ExtraArgs={'ACL': 'public-read'})
         '''
+        
     except ClientError as e:
         logging.error(e)
         return False
@@ -103,28 +104,6 @@ def delete_bucket(region, bucket_name):
     list_buckets()
   
  
-def ListalltheobjectsinBucket(region, bucket_name):
-    s3 = boto3.resource('s3')
-    #print(bucket_name)
-    my_bucket = s3.Bucket(bucket_name)
-    #print(my_bucket.objects.all())
-    #my_bucket = s3.Bucket('bucket_name')
-    nameImage = []
-    for file in my_bucket.objects.all():
-        nameImage.append(file.key)
-        #print(file.key)
-    print(nameImage)
-    return my_bucket
-
-
-def printOutTest(testdata):
-    #print("The S3 inport is working")
-    print(testdata)
-    return testdata
-    
-def test(bucket_name):
-    location = boto3.client('s3').get_bucket_location(Bucket=bucket_name)['LocationConstraint']
-    url = "https://s3-%s.amazonaws.com/%s/%s" % (location, bucket_name, key)
  
  
     
@@ -137,15 +116,12 @@ def main():
 
     region = 'us-east-1'
   
-    #args = parser.parse_args()
-    #printOutTest(testdata)
+    args = parser.parse_args()
     #create_bucket(args.bucket_name)
-    #list_buckets()
+    list_buckets()
     #upload_file(args.file_name,args.bucket_name, args.object_key)
     #delete_object(region, args.bucket_name, args.object_key)
-    #delete_bucket(region, args.bucket_name)
-    #ListalltheobjectsinBucket(region, args.bucket_name)
-    
+    delete_bucket(region, args.bucket_name)
  
  
 
