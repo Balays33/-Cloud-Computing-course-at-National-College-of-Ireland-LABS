@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django.http import Http404
 import requests
 
-
+#boto3 and AWS s3 import package
 import logging
 import boto3
 from botocore.exceptions import ClientError
@@ -20,11 +20,12 @@ import time
 
 
 
-#Todo model import
+#Todo model import Model
 from .models import Todo
 from .models import Feed
 
 
+#file system package
 from .forms import *
 from django.core.files.storage import FileSystemStorage
 # Create your views here.
@@ -37,7 +38,7 @@ from django.core.files.storage import FileSystemStorage
 def index(request):
     return HttpResponse("Hello, world. You're at the polls index.")
 '''
-
+#upload page view
 def upload(request):
     print("upload page")
     context= {}
@@ -52,27 +53,27 @@ def upload(request):
         context['url'] = fs.url(name)
         locationOfFile = 'static/images/{}'
         uploadImageFunction(locationOfFile.format(upload_file.name),nameOfTrip)
-        #object_name = str(upload_file.name)
-        #s3_client = boto3.client('s3')
-        #response = s3_client.upload_file(upload_file, 'intagramclone2021', object_name)
-        
-        #context['uploadObjectToS3'] = s3module.upload_file(name,'intagramclone2021')
+            #object_name = str(upload_file.name)
+            #s3_client = boto3.client('s3')
+            #response = s3_client.upload_file(upload_file, 'intagramclone2021', object_name)
+            #context['uploadObjectToS3'] = s3module.upload_file(name,'intagramclone2021')
     return render(request, 'feeds/upload.html',  context)
 
     
 
-
+#index page view
 def index(request):
     print("index page")
     timeGet()
     #print(timeGet())
     context= {}
     context['val'] = timeGet()
-    #print(context['val'])
-    #context['uploadObjectToS3'] = s3module.upload_file('apple.jpg','intagramclone2021')
-    #context['listObjectsinS3'] = s3module.ListalltheobjectsinBucket('us-east-1','intagramclone2021')
-    #print(context['listObjectsinS3'])
+        #print(context['val'])
+        #context['uploadObjectToS3'] = s3module.upload_file('apple.jpg','intagramclone2021')
+        #context['listObjectsinS3'] = s3module.ListalltheobjectsinBucket('us-east-1','intagramclone2021')
+        #print(context['listObjectsinS3'])
     
+    # open weater api
     urlwithIE =  'https://api.openweathermap.org/data/2.5/weather?q={},{}&units=metric&appid=92757f89a5760a1310e7b5657fff90d2'
     url =  'https://api.openweathermap.org/data/2.5/weather?q={},&units=metric&appid=92757f89a5760a1310e7b5657fff90d2'
     
@@ -105,9 +106,9 @@ def index(request):
             
             )
         new_feed.save()
-        pictureF = request.FILES['doc']
-        print(pictureF.name)
-        print(pictureF.size)
+        #pictureF = request.FILES['doc']
+        #print(pictureF.name)
+        #print(pictureF.size)
         #imag = request.POST['choosedImage']
         #uploadImageFunction('apple.jpg')
     weaterforcast(feeds_database,url)
@@ -116,7 +117,7 @@ def index(request):
     return render(request, 'feeds/index.html', {'feeds_database': feeds_database, 'context': context})
     
 
-
+#devloper page test few api and fuction
 def developer(request):
     print("developer python fuction")
     
@@ -124,57 +125,48 @@ def developer(request):
     
     context= {}
     context['val'] = "TEST"
-    #context['s3test'] = s3module.printOutTest('intagramclone2021')
-    context['s3uploadtest'] = s3module.upload_file('apple.jpg','intagramclone2021')
-    context['s3test'] = s3module.ListalltheobjectsinBucket('us-east-1','intagramclone2021')
-    #print(context)
-    
-
-    
-    
-       
-       
+        #context['s3test'] = s3module.printOutTest('intagramclone2021')
+    #context['s3uploadtest'] = s3module.upload_file('apple.jpg','intagramclone2021')
+    #context['s3test'] = s3module.ListalltheobjectsinBucket('us-east-1','intagramclone2021')
+        #print(context)
     todo = Todo.objects.all()
     if request.method == 'POST':
         new_todo = Todo(
             title = request.POST['title']
         )
         new_todo.save()
-        #return redirect('/')        
-        #return render(request, 'feeds/developer.html',{'todos' : todo}) 
-        #imaggg = request.POST.get('getrow')
-        #uploadImageFunction(imaggg)
-        
-            
+            #return redirect('/')        
+            #return render(request, 'feeds/developer.html',{'todos' : todo}) 
+            #imaggg = request.POST.get('getrow')
+            #uploadImageFunction(imaggg)
     return render(request, 'feeds/developer.html', {'todos' : todo ,'context': context})
         
         
 
-    
+# delete the todo model item    
 def delete(request, pk):
     print("delete python fuction")
     todo = Todo.objects.get(id=pk)
     todo.delete()
-    
     return render(request, 'feeds/developer.html', )
+ 
     
 # upload time get from the Python package    
 def timeGet():
     seconds = time.time()
     local_time = time.ctime(seconds)
     print("Local time:", local_time)
-    
     return local_time 
     
 #update weather forecast
 def weaterforcast(feeds_database,url):
     for updateWeatherDATA in feeds_database:
         citylocation =updateWeatherDATA.locationF
-        #print(citylocation)
+            #print(citylocation)
         newGeoWeater =requests.get(url.format(citylocation)).json()
-        #print(newGeoWeater)
+            #print(newGeoWeater)
         try:
-          #print(newGeoWeater['main']['temp'])
+            #print(newGeoWeater['main']['temp'])
           updateWeatherDATA.weatherF = newGeoWeater['main']['temp']
           updateWeatherDATA.save(update_fields=['weatherF'])
           updateWeatherDATA.weatherdescriptionF =  newGeoWeater['weather'][0]['description']
@@ -182,7 +174,7 @@ def weaterforcast(feeds_database,url):
           updateWeatherDATA.weatericonF = newGeoWeater['weather'][0]['icon']
           updateWeatherDATA.save(update_fields=['weatericonF'])
         except Exception as e:
-          #print(e)
+            #print(e)
           print("ERROR")
           errorObject = feeds_database.get(locationF=citylocation)
           errorObject.delete()
@@ -211,11 +203,8 @@ def listPictureS3():
 
 
 
-#clean up
+#clean up I wont like to delete becaouse It is useful codes
     """
-    
-    
-    
     def weaterforcast(feeds_database,url):
     for updateWeatherDATA in feeds_database:
         citylocation =updateWeatherDATA.locationF
